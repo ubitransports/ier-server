@@ -1,0 +1,65 @@
+{
+  "name": "@ubi/ier-server",
+  "version": "0.0.1",
+  "description": "JavaScript server for IER ticket vending machine",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "demo": "npx tsx ./src/demo.ts",
+    "lint-ci": "eslint --color --ext=js,ts src",
+    "lint": "yarn lint-ci --fix",
+    "test": "jest",
+    "dev": "yarn run test --watchAll",
+    "build": "tsc && rollup -c"
+  },
+  "devdependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@jest/globals": "^29.7.0",
+    "@rollup/plugin-typescript": "11.1.6",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^18.7.1",
+    "@types/ws": "^8.5.10",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
+    "esbuild": "^0.14.53",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-transform-stub": "^2.0.0",
+    "nodemon": "^3.0.3",
+    "prettier": "^2.0.5",
+    "rollup": "^2.23.0",
+    "semantic-release": "^19.0.3",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@datadog/browser-rum": "^5.8.0",
+    "@types/sqlite3": "^3.1.11",
+    "emittery": "^1.0.1",
+    "isomorphic-ws": "^5.0.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.10"
+  }
+}
