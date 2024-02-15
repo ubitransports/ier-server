@@ -19,7 +19,7 @@
     "dev": "yarn run test --watchAll",
     "build": "tsc && rollup -c"
   },
-  "devdependencies": {
+  "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@jest/globals": "^29.7.0",
@@ -54,12 +54,7 @@
     "@datadog/browser-rum": "^5.8.0",
     "@types/sqlite3": "^3.1.11",
     "emittery": "^1.0.1",
-    "isomorphic-ws": "^5.0.0",
-    "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "ws": "^8.16.0"
-  },
-  "devDependencies": {
-    "@types/ws": "^8.5.10"
   }
 }

@@ -23,3 +23,9 @@ steps:
         entrypoint: yarn
         args:
             - test
+    
+    -   id: build
+        name: node:20
+        entrypoint: yarn
+        args:
+            - build
