@@ -1,24 +1,28 @@
 {
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
+        "target": "ESNext",
+        "preserveValueImports": false,
+        "importsNotUsedAsValues": "remove",
+        "verbatimModuleSyntax": false,
+        "composite": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "outDir": "./dist",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+        },
         "lib": [
-            "ES2021"
+            "ESNext",
+            "DOM",
         ],
-        "declaration": true,
-        "declarationDir": "dist/types",
-        "emitDeclarationOnly": true,
         "strict": true,
         "esModuleInterop": true,
         "allowJs": true,
-        "moduleResolution": "node",
         "skipLibCheck": true,
         "resolveJsonModule": true,
-        "paths": {
-            "@/*": [
-                "./*"
-            ]
-        }
     },
     "include": [
         "src"

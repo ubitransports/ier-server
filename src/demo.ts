@@ -1,42 +1,56 @@
-import WebSocket from 'ws';
-import sqlite3 from 'sqlite3';
+import { WebSocketServer } from 'ws'
+import { Application } from './db'
 
-// Connect to the SQLite database
-const db = new sqlite3.Database('database.sqlite');
-
-// Create HostData table if not exists
-db.run(`CREATE TABLE IF NOT EXISTS HostData (
-    name TEXT PRIMARY KEY,
-    value TEXT
-)`);
+const WS_PORT = 8081
 
 // Create WebSocket server
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocketServer({ port: WS_PORT })
 
-// Listen for WebSocket connections
+console.log('WS Server listening on: ws://localhost:%s', WS_PORT)
+
 wss.on('connection', (ws) => {
-    console.log('Client connected');
+  console.log('DEMO: new client connected')
 
-    // Listen for messages from client
-    ws.on('message', () => {
-        // Select all data from HostData table
-        db.all('SELECT * FROM HostData', (err, rows) => {
-            if (err) {
-                console.error('Error retrieving data:', err);
-                return;
+  ws.on('message', (message) => {
+    console.log(`Received: ${message}`)
+    try {
+      if (message.toString() === 'Application.getHostData') {
+        Application.hostData()
+          .then((rows) => {
+            const responseData: { [key: string]: string } = {}
+            if (Array.isArray(rows)) {
+              rows.forEach((row) => {
+                responseData[row.name] = row.value
+              })
+            } else {
+              console.error('Error: hostData is not an array')
             }
+            ws.send(
+              JSON.stringify({
+                type: 'Application.hostData',
+                payload: responseData,
+              }),
+            )
+          })
+          .catch((error) => {
+            ws.send(
+              JSON.stringify({
+                type: 'error',
+                message: 'Error fetching data',
+              }),
+            )
+            console.error('Error fetching data:', error)
+          })
+      } else {
+        ws.send('Unknown message received')
+      }
+    } catch (error) {
+      ws.send('Error parsing message')
+      console.error('Error parsing message:', error)
+    }
+  })
 
-            // Format data into payload schema
-            const payload: { [key: string]: any } = {};
-            rows.forEach((row: any) => {
-                payload[row.name] = row.value;
-            });
-
-            // Send payload to client
-            ws.send(JSON.stringify(payload));
-        });
-    });
-});
-
-// Run the server
-console.log('Server running on port 8080');
+  ws.on('close', () => {
+    console.log('DEMO: client disconnected')
+  })
+})
