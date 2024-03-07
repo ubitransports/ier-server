@@ -26,10 +26,13 @@ export class SubSampleService implements Service {
       console.error(e)
     }
 
+    // stateflow.onLog((action, socket, payload) => {
+    //   fs.writeFileSync('sub-sample-service.log')
+    // })
+
     // return
     await stateflow.subscribe('ping', (now) => {
-      console.log(now)
-      //
+      // console.log(now)
       // if (now % 10 === 0) {
       //   throw new Error('Error in ping subscription')
       // } else if (now % 10 === 5) {

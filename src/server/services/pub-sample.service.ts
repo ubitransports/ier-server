@@ -24,7 +24,7 @@ export class PubSampleService implements Service {
     await stateflow.initialize('SubSampleService')
 
     setInterval(async () => {
-      await stateflow.publish('ping', Math.ceil(Date.now() / 1000))
+      // await stateflow.publish('ping', Math.ceil(Date.now() / 1000))
     }, 1000)
   }
 }

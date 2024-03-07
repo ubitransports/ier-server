@@ -18,6 +18,10 @@
             "ESNext",
             "DOM",
         ],
+        "types": [
+            "node",
+            "chrome-types"
+        ],
         "strict": true,
         "esModuleInterop": true,
         "allowJs": true,

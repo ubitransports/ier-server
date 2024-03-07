@@ -1,6 +1,12 @@
+import type { TabContext } from '@/server/consts/tabs'
+
 export type StateflowSpecification = {
-  states: object
+  states: {
+    currentTab: TabContext
+    tabUrls: string[]
+  }
   events: {
+    chromeTabWarning: string
     ping: number
   }
 }
