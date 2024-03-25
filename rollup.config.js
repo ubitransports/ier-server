@@ -7,7 +7,6 @@ import { tsResolve } from '@ubi/plugin-rollup-typescript-resolve'
 import { sync as rimraf } from 'rimraf'
 import { chromeExtension, simpleReloader } from 'rollup-plugin-chrome-extension'
 import esbuild from 'rollup-plugin-esbuild'
-
 const cwd = process.cwd()
 
 const pkg = JSON.parse(fs.readFileSync(resolve(cwd, 'package.json'), 'utf-8'))

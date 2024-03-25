@@ -1,5 +1,5 @@
 export const tabContexts = [
-  'SPLASHCREEN',
+  'SPLASHSCREEN',
   'MAIN',
   'SCREENSAVER',
   'ERROR',

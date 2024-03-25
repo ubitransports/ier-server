@@ -1,9 +1,9 @@
 import { StateflowClient } from '@ubi/ier-stateflow/dist/stateflow-client'
-import { STATEFLOW_ENDPOINT } from '@/server/consts/network'
+import { STATEFLOW_ENDPOINT } from '@/common/consts/network'
+import type { StateflowSpecification } from '@/common/types/stateflow'
 import { Logger } from '@/server/libs/logger'
 import type { Service } from '@/server/libs/service'
 import { getStateflowLoggerChannel } from '@/server/libs/stateflow-logger'
-import type { StateflowSpecification } from '@/server/types/stateflow'
 
 export class PubSampleService implements Service {
   async main() {

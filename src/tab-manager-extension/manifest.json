@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Tab manager",
-    "description": "IER Tab Manager",
+    "description": "MATAWANxIER Tab Manager",
     "version": "1.0",
     "author": "Matawan",
     "permissions": ["tabs"],

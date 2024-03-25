@@ -1,15 +1,15 @@
 import { StateflowClient } from '@ubi/ier-stateflow/dist/stateflow-client'
 import { objectEntries } from '@ubi/js-utils/dist/utils'
-import { STATEFLOW_ENDPOINT } from '@/server/consts/network'
-import type { TabContext } from '@/server/consts/tabs'
-import { tabContexts } from '@/server/consts/tabs'
-import type { StateflowSpecification } from '@/server/types/stateflow'
+import { STATEFLOW_ENDPOINT } from '@/common/consts/network'
+import type { TabContext } from '@/common/consts/tabs'
+import { tabContexts } from '@/common/consts/tabs'
+import type { StateflowSpecification } from '@/common/types/stateflow'
 
-let currentTab: TabContext = 'SPLASHCREEN'
+let currentTabContext: TabContext = 'SPLASHSCREEN'
 let tabUrls: string[] = []
 
 const tabIdByContext: Record<TabContext, chrome.tabs.Tab['id']> = {
-  SPLASHCREEN: undefined,
+  SPLASHSCREEN: undefined,
   MAIN: undefined,
   SCREENSAVER: undefined,
   ERROR: undefined,
@@ -70,7 +70,7 @@ async function focusCurrentTab() {
     return
   }
 
-  const currentTabId = tabIdByContext[currentTab]
+  const currentTabId = tabIdByContext[currentTabContext]
   if (currentTabId !== undefined) {
     await chrome.tabs.update(currentTabId, { active: true })
   } else {
@@ -106,9 +106,9 @@ async function trackCurrentTab() {
   })
 
   await stateflow.watch(
-    ['currentTab', 'tabUrls'],
+    ['currentTabContext', 'tabUrls'],
     async (newSates, _, mutatedKey) => {
-      currentTab = newSates.currentTab
+      currentTabContext = newSates.currentTabContext
       tabUrls = newSates.tabUrls
 
       const isImmediate = mutatedKey === null
@@ -116,42 +116,43 @@ async function trackCurrentTab() {
       for (let i = 0; i < tabContexts.length; i++) {
         const tabContext = tabContexts[i]
 
-        let tabId = tabIdByContext[tabContext]
-
-        if (tabId !== undefined) {
-          try {
-            await chrome.tabs.get(tabId)
-          } catch {
-            tabId = undefined
-          }
-        }
-
+        const tabId = await getTabIdByContext(tabContext)
         if (tabId === undefined) {
           await warn(`No succeed to get a tab id for ${tabContext} context`)
           continue
         }
 
-        const tabUrl = tabUrls[i]
-
-        if (tabUrl === undefined) {
-          await warn(`No succeed to get a tab url for ${tabContext} context`)
-          continue
-        }
-
-        const url = tabUrls[i]
-        const active = currentTab === tabContext
-
         if (isImmediate || mutatedKey === 'tabUrls') {
+          const url = tabUrls[i]
+          if (!url) {
+            await warn(`No succeed to get a tab url for ${tabContext} context`)
+            continue
+          }
           await chrome.tabs.update(tabId, { url })
         }
 
-        if (isImmediate || mutatedKey === 'currentTab') {
+        if (isImmediate || mutatedKey === 'currentTabContext') {
+          const active = currentTabContext === tabContext
           await chrome.tabs.update(tabId, { active })
         }
       }
     },
     { immediate: true },
   )
+}
+
+async function getTabIdByContext(tabContext: TabContext) {
+  let tabId = tabIdByContext[tabContext]
+
+  if (tabId !== undefined) {
+    try {
+      await chrome.tabs.get(tabId)
+    } catch {
+      tabId = undefined
+    }
+  }
+
+  return tabId
 }
 
 async function warn(message: string) {

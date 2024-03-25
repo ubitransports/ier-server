@@ -1,8 +1,8 @@
-import type { TabContext } from '@/server/consts/tabs'
+import type { TabContext } from '@/common/consts/tabs'
 
 export type StateflowSpecification = {
   states: {
-    currentTab: TabContext
+    currentTabContext: TabContext
     tabUrls: string[]
   }
   events: {

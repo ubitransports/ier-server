@@ -1,37 +1,11 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "preserveValueImports": false,
-        "importsNotUsedAsValues": "remove",
-        "verbatimModuleSyntax": false,
-        "composite": true,
-        "module": "ESNext",
-        "moduleResolution": "node",
-        "outDir": "./dist",
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "./src/*"
-            ],
+    "files": [],
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
         },
-        "lib": [
-            "ESNext",
-            "DOM",
-        ],
-        "types": [
-            "node",
-            "chrome-types"
-        ],
-        "strict": true,
-        "esModuleInterop": true,
-        "allowJs": true,
-        "skipLibCheck": true,
-        "resolveJsonModule": true,
-    },
-    "include": [
-        "src"
+        {
+            "path": "./tsconfig.webextension.json"
+        },
     ],
-    "exclude": [
-        "node_modules"
-    ]
 }
