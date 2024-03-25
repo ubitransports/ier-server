@@ -1,5 +1,5 @@
 export type StateflowSpecification = {
-  states: {}
+  states: object
   events: {
     ping: number
   }

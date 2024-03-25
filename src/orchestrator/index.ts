@@ -1,55 +1,34 @@
 import { spawn } from 'child_process'
-import { dirname } from 'path'
-import process from 'process'
 import { objectKeys } from '@ubi/js-utils/dist/utils'
+import { cwd } from '@/server/libs/cwd'
+import { Logger } from '@/server/libs/logger'
 import services from '@/server/services'
-import type { ServiceName } from '@/server/services'
 
-const cwd = dirname(process.argv[1])
-
-const servicePad = Math.max(
-  ...objectKeys(services).map((serviceName) => serviceName.length),
-)
+const logger = new Logger('logs/orchestrator', { verbose: true })
 
 for (const serviceName of objectKeys(services)) {
   const startService = () => {
-    const childProcess = spawn('node', ['server.mjs', serviceName], { cwd })
+    const childProcess = spawn('node', ['server.js', serviceName], { cwd })
 
-    log('START', serviceName, `PID=${childProcess.pid}`)
+    logger.push('LOG', [serviceName, 'Start', `PID=${childProcess.pid}`])
 
     childProcess.stdout.on('data', (data) => {
-      log('LOG', serviceName, data.toString().trimEnd())
+      logger.push('LOG', [serviceName, 'StdOut', data.toString().trimEnd()])
     })
 
     childProcess.stderr.on('data', (data) => {
-      log('ERROR', serviceName, data.toString().trimEnd())
+      logger.push('ERROR', [serviceName, 'StdErr', data.toString().trimEnd()])
     })
 
     childProcess.on('close', (code) => {
-      log('EXIT', serviceName, code)
+      logger.push('ERROR', [
+        serviceName,
+        'Stop',
+        `PID=${childProcess.pid} Code=${code}`,
+      ])
       setTimeout(startService)
     })
   }
 
   startService()
-}
-
-function log(
-  action: 'START' | 'EXIT' | 'LOG' | 'ERROR',
-  serviceName: ServiceName,
-  data?: unknown,
-) {
-  const time = new Date().toISOString()
-
-  const args: unknown[] = [
-    time,
-    action.padEnd(5),
-    serviceName.padEnd(servicePad),
-  ]
-
-  if (data !== undefined) {
-    args.push(data)
-  }
-
-  ;(['ERROR', 'EXIT'].includes(action) ? console.error : console.log)(...args)
 }

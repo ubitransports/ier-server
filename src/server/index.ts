@@ -2,7 +2,7 @@ import process from 'process'
 import type { ServiceName } from '@/server/services'
 import services from '@/server/services'
 
-// Usage : node server.mjs <serviceName>
+// Usage : node server.js <serviceName>
 
 process.on('unhandledRejection', (reason: string, p: Promise<unknown>) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason)
