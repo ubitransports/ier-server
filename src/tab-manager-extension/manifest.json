@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "Tab manager",
+    "description": "MATAWANxIER Tab Manager",
+    "version": "1.0",
+    "author": "Matawan",
+    "permissions": ["tabs"],
+    "background": {
+        "service_worker": "worker.ts"
+    }
+}

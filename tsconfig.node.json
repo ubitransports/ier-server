@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "preserveValueImports": false,
+        "importsNotUsedAsValues": "remove",
+        "verbatimModuleSyntax": false,
+        "composite": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "outDir": "./dist",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+        },
+        "lib": [
+            "ESNext",
+        ],
+        "types": [
+            "node"
+        ],
+        "strict": true,
+        "esModuleInterop": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+    },
+    "include": [
+        "src/common",
+        "src/orchestrator",
+        "src/server"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

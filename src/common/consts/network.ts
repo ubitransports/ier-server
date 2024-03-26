@@ -1,0 +1,3 @@
+export const STATEFLOW_PORT = 8282
+
+export const STATEFLOW_ENDPOINT = `ws://127.0.0.1:${STATEFLOW_PORT}`

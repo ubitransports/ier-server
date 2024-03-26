@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "preserveValueImports": false,
+        "importsNotUsedAsValues": "remove",
+        "verbatimModuleSyntax": false,
+        "composite": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "outDir": "./dist",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+        },
+        "lib": [
+            "ESNext",
+            "DOM",
+        ],
+        "types": [
+            "chrome-types"
+        ],
+        "strict": true,
+        "esModuleInterop": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+    },
+    "include": [
+        "src/common",
+        "src/tab-manager-extension",
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
