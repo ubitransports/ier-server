@@ -35,7 +35,7 @@
     "@types/ws": "^8.5.10",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
-    "@ubi/plugin-rollup-typescript-resolve": "^1.1.0",
+    "@ubi/plugin-rollup-typescript-resolve": "^1.2.0",
     "chrome-types": "^0.1.273",
     "esbuild": "^0.20.1",
     "eslint": "^8.57.0",
@@ -62,7 +62,7 @@
   "dependencies": {
     "@datadog/browser-rum": "^5.8.0",
     "@types/sqlite3": "^3.1.11",
-    "@ubi/ier-stateflow": "^1.0.0",
+    "@ubi/ier-stateflow": "^1.1.0",
     "@ubi/js-utils": "^1.34.0",
     "emittery": "^1.0.1",
     "isomorphic-ws": "^5.0.0",
